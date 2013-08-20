@@ -1,0 +1,15 @@
+<h1>Backup Masta</h1>
+
+<%= Sinatra::Base.environment %>
+
+<form action="/backups" method="post" accept-charset="utf-8">
+  <p>User: <input type="text" name="backup[user]" value="" id="article[user]" /></p>
+  <p>Pass: <input type="text" name="backup[password]" value="" id="article[password]" /></p>
+  <p>Host: <input type="text" name="backup[host]" value="" id="article[host]" /></p>
+  <p>Database Name: <input type="text" name="backup[db_name]" value="" id="article[db_name]" /></p>
+  <p><input type="submit" value="Add" /></p>
+</form>
+
+<% Backup.all.each do |backup| %>
+  <h2><%= backup.user%>@<%= backup.host %> <%= backup.db_name %></h2>
+<% end %>
