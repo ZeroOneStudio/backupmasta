@@ -1,4 +1,6 @@
 backupmasta
 ===========
 
-Simple backup master for MySQL databases
+Backupmasta — da masta of ur backups!
+
+To be continued ...
