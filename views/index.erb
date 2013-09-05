@@ -16,7 +16,7 @@
   <ul>
     <li>
       <h2><%= backup.ssh_user %>@<%= backup.db_host %> with database <%= backup.db_name %>@<%= backup.db_host%></h2>
-      <a href="/backups/<%= backup.id %>/backup">Back me up!</a>
+      <a href="/backups/<%= backup.id %>/perform">Back me up!</a>
     </li>
   </ul>
 <% end %>

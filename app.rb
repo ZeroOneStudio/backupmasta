@@ -40,7 +40,7 @@ post '/backups' do
   redirect '/'
 end
 
-get '/backups/:id/backup' do
+get '/backups/:id/perform' do
   b = Backup.get(params[:id])
   b.perform_backup
   redirect '/'
