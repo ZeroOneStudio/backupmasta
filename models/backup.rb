@@ -1,4 +1,4 @@
-require 'open4'
+require 'net/ssh'
 
 class Backup
   include DataMapper::Resource
@@ -12,14 +12,23 @@ class Backup
   property :db_password, String
 
   def perform_backup
-    puts "Starting backing up..."
-    pid, stdin, stdout, stderr = Open4::popen4 "ssh flops 'mysqldump --user=#{db_user} --password=#{db_password} #{db_name} > #{db_name}.sql'"
-    stdin.close
-    ignored, status = Process::waitpid2 pid
-    if status.exitstatus == 0
-      puts "Done!"
-    else
-      puts "Something went wrong: #{ stderr.read.strip }"
+    puts "Logging in ..."
+    Net::SSH.start(db_host, ssh_user, password: ssh_password) do |ssh|
+      dump_name = "#{db_name}_dump_#{Time.now.strftime('%d_%m_%Y_%H_%M')}"
+      mysqldump_command = "mysqldump --user=#{db_user} --password=#{db_password} #{db_name} > #{dump_name}.sql"
+      
+      puts "Starting backup ..."
+
+      stderr = ""
+      ssh.exec!(mysqldump_command) do |channel, stream, data|
+        stderr << data if stream == :stderr
+      end
+
+      if stderr.empty?
+       puts "Done!"
+      else
+       puts stderr
+      end
     end
   end
 end
