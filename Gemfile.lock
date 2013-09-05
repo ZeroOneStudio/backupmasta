@@ -60,6 +60,7 @@ GEM
     json (1.8.0)
     json_pure (1.8.0)
     multi_json (1.7.9)
+    open4 (1.3.0)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -78,4 +79,5 @@ DEPENDENCIES
   datamapper
   dm-postgres-adapter
   dm-sqlite-adapter
+  open4
   sinatra

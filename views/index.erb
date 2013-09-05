@@ -3,13 +3,20 @@
 <%= Sinatra::Base.environment %>
 
 <form action="/backups" method="post" accept-charset="utf-8">
-  <p>User: <input type="text" name="backup[user]" value="" id="article[user]" /></p>
-  <p>Pass: <input type="text" name="backup[password]" value="" id="article[password]" /></p>
-  <p>Host: <input type="text" name="backup[host]" value="" id="article[host]" /></p>
-  <p>Database Name: <input type="text" name="backup[db_name]" value="" id="article[db_name]" /></p>
+  <p>SSH User: <input type="text" name="backup[ssh_user]" value="" id="backup[ssh_user]" /></p>
+  <p>SSH Password: <input type="text" name="backup[ssh_password]" value="" id="backup[ssh_password]" /></p>
+  <p>Database Host: <input type="text" name="backup[db_host]" value="" id="backup[db_host]" /></p>
+  <p>Database User: <input type="text" name="backup[db_user]" value="" id="backup[db_user]" /></p>
+  <p>Database Name: <input type="text" name="backup[db_name]" value="" id="backup[db_name]" /></p>
+  <p>Database Password: <input type="text" name="backup[db_password]" value="" id="backup[db_password]" /></p>
   <p><input type="submit" value="Add" /></p>
 </form>
 
 <% Backup.all.each do |backup| %>
-  <h2><%= backup.user%>@<%= backup.host %> <%= backup.db_name %></h2>
+  <ul>
+    <li>
+      <h2><%= backup.ssh_user %>@<%= backup.db_host %> with database <%= backup.db_name %>@<%= backup.db_host%></h2>
+      <a href="/backups/<%= backup.id %>/backup">Back me up!</a>
+    </li>
+  </ul>
 <% end %>
