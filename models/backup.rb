@@ -14,19 +14,20 @@ class Backup
     puts "Logging in ..."
     Net::SSH.start(host, ssh_user) do |ssh|
       dump_name = "#{db_name}_dump_#{Time.now.strftime('%d_%m_%Y_%H_%M')}"
-      mysqldump_command = "mysqldump --user=#{db_user} --password=#{db_password} #{db_name} > #{dump_name}.sql"
+      mysqldump_command = "mysqldump --user=#{db_user} --password=#{db_password} #{db_name}"
       
       puts "Starting backup ..."
 
-      stderr = ""
+      stderr = stdout = ""
       ssh.exec!(mysqldump_command) do |channel, stream, data|
         stderr << data if stream == :stderr
+        stdout << data if stream == :stdout
       end
 
       if stderr.empty?
-       puts "Done!"
+        puts "`db_name` was successfully backed up!"
       else
-       puts stderr
+        puts stderr
       end
     end
   end
