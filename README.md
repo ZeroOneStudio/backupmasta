@@ -3,6 +3,8 @@ backupmasta
 
 Backupmasta — da masta of ur backups!
 
+[![Code Climate](https://codeclimate.com/github/ZeroOneStudio/backupmasta.png)](https://codeclimate.com/github/ZeroOneStudio/backupmasta)
+
 How to
 ======
 
