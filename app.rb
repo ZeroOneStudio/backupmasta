@@ -1,10 +1,16 @@
 require 'sinatra'
 require 'data_mapper'
+require 'fog'
+require 'net/ssh'
+require 'json'
 
-require_relative "models/backup"
+require_relative "lib/backup"
+require_relative "lib/storage"
 
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/#{Sinatra::Base.environment}.db")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/data/#{Sinatra::Base.environment}.db")
 DataMapper.finalize.auto_upgrade!
+
+Storage.connect
 
 get '/' do
   erb :index
@@ -18,6 +24,6 @@ end
 
 get '/backups/:id/perform' do
   b = Backup.get(params[:id])
-  b.perform_backup
+  b.store
   redirect '/'
 end
