@@ -8,7 +8,7 @@ Backupmasta — da masta of ur backups!
 How to
 ======
 
-Set your Google Storage access keys in `data/credentials.json`. For example:
+Create file `data/credentials.json` and set there your Google Storage access keys. For example:
 
     {
       "key" : "GOM1234TYDJUUIR33",
