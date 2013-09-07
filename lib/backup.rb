@@ -7,20 +7,36 @@ class Backup
   property :db_user, String
   property :db_name, String
   property :db_password, String
+  property :keep_limit, Integer
 
   def store
     dump = mysqldump
     unless dump.empty?
       puts "Storing backup ..."
       begin
-        Storage.connection.directories.get("backupmasta").files.create({
+        Storage.files.create({
           body: dump,
           key:  dump_name
         })
         puts "Yay! Your backup successfully stored!"
+        cleanup
       rescue => e
         puts "Oops! Something went wrong while storing: #{e}"
       end
+    end
+  end
+
+  def cleanup
+    files = Storage.files
+    count = files.count
+    if count > keep_limit
+      puts "Cleaning up ..."
+      files.shift(count - keep_limit).map do |file| 
+        file.destroy
+        puts "Backup #{file.key} was removed"
+      end
+    else
+      puts "Nothing to cleanup"
     end
   end
 

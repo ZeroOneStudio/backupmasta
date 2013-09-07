@@ -13,5 +13,13 @@ class Storage
     def credentials
       JSON.parse(File.read("data/credentials.json"))
     end
+
+    def directory
+      self.connection.directories.get("backupmasta")
+    end
+
+    def files
+      directory.files
+    end
   end
 end
