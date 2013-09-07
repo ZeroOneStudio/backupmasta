@@ -18,7 +18,7 @@ DataMapper.finalize.auto_upgrade!
 Storage.connect
 
 use OmniAuth::Builder do
-  provider :github, 'faa89d639e9b55dfc6b7','c7ae9efab8fa249ae2eaf96c5fd18140325f5ab3'
+  provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']
 end
 
 get '/auth/:provider/callback' do
