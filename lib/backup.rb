@@ -9,6 +9,8 @@ class Backup
   property :db_password, String
   property :keep_limit, Integer
 
+  belongs_to :user
+
   def store
     dump = mysqldump
     unless dump.empty?

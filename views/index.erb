@@ -5,23 +5,35 @@
   <body>
     <h1>Backup Masta</h1>
 
-    <form action="/backups" method="post" accept-charset="utf-8">
-      <p>SSH User: <input type="text" name="backup[ssh_user]" value="" id="backup[ssh_user]" /></p>
-      <p>Host: <input type="text" name="backup[host]" value="" id="backup[host]" /></p>
-      <p>Database User: <input type="text" name="backup[db_user]" value="" id="backup[db_user]" /></p>
-      <p>Database Name: <input type="text" name="backup[db_name]" value="" id="backup[db_name]" /></p>
-      <p>Database Password: <input type="text" name="backup[db_password]" value="" id="backup[db_password]" /></p>
-      <p>Backups Limit: <input type="text" name="backup[keep_limit]" value="" id="backup[keep_limit]" /></p>
-      <p><input type="submit" value="Add" /></p>
-    </form>
+    <div>
+      <a href="https://github.com/ZeroOneStudio/backupmasta">Fork me on Github</a>
+    </div>
 
-    <% Backup.all.each do |backup| %>
-      <ul>
-        <li>
-          <h2><%= backup.ssh_user %>@<%= backup.host %> with database <%= backup.db_name %>@<%= backup.host %></h2>
-          <a href="/backups/<%= backup.id %>/perform">Back me up!</a>
-        </li>
-      </ul>
-    <% end %>
+    <div>
+      <% if current_user %>
+        <%= current_user.name %> <a href="/logout">Sign out</a>
+
+        <form action="/backups" method="post" accept-charset="utf-8">
+          <p>SSH User: <input type="text" name="backup[ssh_user]" value="" id="backup[ssh_user]" /></p>
+          <p>Host: <input type="text" name="backup[host]" value="" id="backup[host]" /></p>
+          <p>Database User: <input type="text" name="backup[db_user]" value="" id="backup[db_user]" /></p>
+          <p>Database Name: <input type="text" name="backup[db_name]" value="" id="backup[db_name]" /></p>
+          <p>Database Password: <input type="text" name="backup[db_password]" value="" id="backup[db_password]" /></p>
+          <p>Backups Limit: <input type="text" name="backup[keep_limit]" value="" id="backup[keep_limit]" /></p>
+          <p><input type="submit" value="Add" /></p>
+        </form>
+
+        <% current_user.backups.each do |backup| %>
+          <ul>
+            <li>
+              <h2><%= backup.ssh_user %>@<%= backup.host %> with database <%= backup.db_name %>@<%= backup.host %></h2>
+              <a href="/backups/<%= backup.id %>/perform">Back me up!</a>
+            </li>
+          </ul>
+        <% end %>
+      <% else %>
+        <a href='/auth/github'>Sign in with Github</a><br>        
+      <% end %>
+    </div>
   </body>
 </html>

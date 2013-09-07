@@ -58,6 +58,8 @@ GEM
     do_sqlite3 (0.10.13)
       data_objects (= 0.10.13)
     excon (0.25.3)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     fastercsv (1.5.5)
     fog (1.15.0)
       builder
@@ -70,16 +72,36 @@ GEM
       nokogiri (~> 1.5)
       ruby-hmac
     formatador (0.2.4)
+    hashie (2.0.5)
+    httpauth (0.2.0)
     json (1.8.0)
     json_pure (1.8.0)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
     mime-types (1.25)
     mini_portile (0.5.1)
     multi_json (1.7.9)
+    multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.6.8)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    oauth2 (0.8.1)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      rack (~> 1.2)
+    omniauth (1.1.4)
+      hashie (>= 1.2, < 3)
+      rack
+    omniauth-github (1.1.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
+    omniauth-oauth2 (1.1.1)
+      oauth2 (~> 0.8.0)
+      omniauth (~> 1.0)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
@@ -101,4 +123,6 @@ DEPENDENCIES
   dm-sqlite-adapter
   fog
   net-ssh
+  omniauth
+  omniauth-github
   sinatra
