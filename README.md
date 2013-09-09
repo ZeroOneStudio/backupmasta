@@ -3,6 +3,7 @@ backupmasta
 
 Backupmasta — da masta of ur backups!
 
+[![Dependency Status](https://gemnasium.com/ZeroOneStudio/backupmasta.png)](https://gemnasium.com/ZeroOneStudio/backupmasta)
 [![Code Climate](https://codeclimate.com/github/ZeroOneStudio/backupmasta.png)](https://codeclimate.com/github/ZeroOneStudio/backupmasta)
 
 How to start with your own backupmasta
