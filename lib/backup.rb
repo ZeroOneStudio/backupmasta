@@ -8,6 +8,7 @@ class Backup
   property :db_name, String
   property :db_password, String
   property :keep_limit, Integer
+  property :dir_name, String
 
   belongs_to :user
 

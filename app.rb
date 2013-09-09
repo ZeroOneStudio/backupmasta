@@ -5,6 +5,7 @@ require 'net/ssh'
 require 'json'
 require 'omniauth'
 require 'omniauth-github'
+require './env' if File.exists?('env.rb')
 
 require_relative "lib/backup"
 require_relative "lib/user"
