@@ -16,7 +16,7 @@ class Backup
     backup = new(params)
     backup.user = current_user
     if backup.save
-      Storage.name = backup.dir_postfix
+      backup.set_storage_name
       Storage.create
     end
   end
@@ -26,7 +26,7 @@ class Backup
     unless dump.empty?
       puts "Storing backup ..."
       begin
-        Storage.name = dir_postfix
+        set_storage_name
         Storage.files.create({
           body: dump,
           key:  dump_name
@@ -40,7 +40,7 @@ class Backup
   end
 
   def cleanup
-    Storage.name = dir_postfix
+    set_storage_name
     files = Storage.files
     count = files.count
     if count > keep_limit
@@ -79,5 +79,11 @@ class Backup
       puts "Done!" if stderr.empty?
       return stdout
     end
+  end
+
+  protected
+
+  def set_storage_name
+    Storage.name = dir_postfix
   end
 end
