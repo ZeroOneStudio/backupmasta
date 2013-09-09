@@ -10,16 +10,14 @@ How to start with your own backupmasta
 
 You are to have a bunch of ENV variables to make Backupmasta work:
 
-* ENV['GOOGLE_STORAGE_ID']
-* ENV['GOOGLE_STORAGE_SECRET']
-* ENV['GITHUB_KEY']
-* ENV['GITHUB_SECRET']
+* `ENV['GOOGLE_STORAGE_ID']`
+* `ENV['GOOGLE_STORAGE_SECRET']`
+* `ENV['GITHUB_KEY']`
+* `ENV['GITHUB_SECRET']`
 
 It should be set in an `env.rb` file at the root of the project. Example:
 
-```Ruby
-  ENV['GOOGLE_STORAGE_ID'] = "your_google_storage_id"
-```
+    ENV['GOOGLE_STORAGE_ID'] = "your_google_storage_id"
 
 How to use backupmasta.herokuapp.com
 ====================================
