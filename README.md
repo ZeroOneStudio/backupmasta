@@ -5,15 +5,19 @@ Backupmasta — da masta of ur backups!
 
 [![Code Climate](https://codeclimate.com/github/ZeroOneStudio/backupmasta.png)](https://codeclimate.com/github/ZeroOneStudio/backupmasta)
 
-How to
-======
+How to start with your own backupmasta
+======================================
 
-Create file `data/credentials.json` and set there your Google Storage access keys. For example:
+You are to have a bunch of ENV variables to make Backupmasta work:
 
-    {
-      "key" : "GOM1234TYDJUUIR33",
-      "secret" : "ri1L883498rek44R5zoX89sdfloikccc66/747Re"
-    }
+* ENV['GOOGLE_STORAGE_ID']
+* ENV['GOOGLE_STORAGE_SECRET']
+* ENV['GITHUB_KEY']
+* ENV['GITHUB_SECRET']
+
+
+How to use backupmasta.herokuapp.com
+====================================
 
 Add this public key to `~/.ssh/authorized_keys` on a server where your MySQL is located:
 
