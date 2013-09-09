@@ -8,15 +8,25 @@ class Backup
   property :db_name, String
   property :db_password, String
   property :keep_limit, Integer
-  property :dir_name, String
+  property :dir_postfix, String
 
   belongs_to :user
+
+  def self.create params, current_user
+    backup = new(params)
+    backup.user = current_user
+    if backup.save
+      Storage.name = backup.dir_postfix
+      Storage.create
+    end
+  end
 
   def store
     dump = mysqldump
     unless dump.empty?
       puts "Storing backup ..."
       begin
+        Storage.name = dir_postfix
         Storage.files.create({
           body: dump,
           key:  dump_name
@@ -30,6 +40,7 @@ class Backup
   end
 
   def cleanup
+    Storage.name = dir_postfix
     files = Storage.files
     count = files.count
     if count > keep_limit

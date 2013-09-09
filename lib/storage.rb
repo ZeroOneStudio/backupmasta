@@ -10,12 +10,18 @@ class Storage
 
     alias :connection :connect
 
-    def directory
-      self.connection.directories.get("backupmasta")
+    attr_accessor :name
+
+    def create
+      self.connection.directories.create({key: "backupmasta-#{name}"})
+    end
+
+    def get_directory
+      self.connection.directories.get("backupmasta-#{name}")
     end
 
     def files
-      directory.files
+      get_directory.files
     end
   end
 end

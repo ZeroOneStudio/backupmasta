@@ -38,15 +38,13 @@ get '/' do
 end
 
 post '/backups' do
-  backup = Backup.new(params[:backup])
-  backup.user = current_user
-  backup.save
+  Backup.create(params[:backup], current_user)
   redirect '/'
 end
 
 get '/backups/:id/perform' do
-  b = Backup.get(params[:id])
-  b.store
+  backup = Backup.get(params[:id])
+  backup.store
   redirect '/'
 end
 
