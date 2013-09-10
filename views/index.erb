@@ -14,13 +14,13 @@
         <%= current_user.name %> <a href="/logout">Sign out</a>
 
         <form action="/backups" method="post" accept-charset="utf-8">
-          <p>SSH User: <input type="text" name="backup[ssh_user]" value="" id="backup[ssh_user]" /></p>
-          <p>Host: <input type="text" name="backup[host]" value="" id="backup[host]" /></p>
-          <p>Database User: <input type="text" name="backup[db_user]" value="" id="backup[db_user]" /></p>
-          <p>Database Name: <input type="text" name="backup[db_name]" value="" id="backup[db_name]" /></p>
-          <p>Database Password: <input type="text" name="backup[db_password]" value="" id="backup[db_password]" /></p>
-          <p>Backups Limit: <input type="text" name="backup[keep_limit]" value="" id="backup[keep_limit]" /></p>
-          <p>Directory Postfix: <input type="text" name="backup[dir_postfix]" value="" id="backup[dir_postfix]" /></p>
+          <p>SSH User: <input type="text" name="backup[ssh_user]" value="" id="backup[ssh_user]" required/></p>
+          <p>Host: <input type="text" name="backup[host]" value="" id="backup[host]" required/></p>
+          <p>Database User: <input type="text" name="backup[db_user]" value="" id="backup[db_user]" required/></p>
+          <p>Database Name: <input type="text" name="backup[db_name]" value="" id="backup[db_name]" required/></p>
+          <p>Database Password: <input type="text" name="backup[db_password]" value="" id="backup[db_password]" required/></p>
+          <p>Backups Limit: <input type="text" name="backup[keep_limit]" value="" id="backup[keep_limit]" required/></p>
+          <p>Directory Postfix: <input type="text" name="backup[dir_postfix]" value="" id="backup[dir_postfix]" required/></p>
           <p><input type="submit" value="Add" /></p>
         </form>
 

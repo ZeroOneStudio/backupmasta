@@ -2,13 +2,17 @@ class Backup
   include DataMapper::Resource
 
   property :id, Serial
-  property :ssh_user, String
-  property :host, String
-  property :db_user, String
-  property :db_name, String
-  property :db_password, String
-  property :keep_limit, Integer
-  property :dir_postfix, String
+  property :ssh_user, String, required: true
+  property :host, String, required: true
+  property :db_user, String, required: true
+  property :db_name, String, required: true
+  property :db_password, String, required: true
+  property :keep_limit, Integer, required: true
+  property :dir_postfix, String, required: true, unique: true, format: /^a-zA-Z0-9-$/,
+                                 messages: {
+                                   is_unique: "We already have that postfix",
+                                   format: "Incorrect format"
+                                 }
 
   belongs_to :user
 
