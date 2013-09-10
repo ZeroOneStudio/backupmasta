@@ -42,6 +42,11 @@ post '/backups' do
   redirect '/'
 end
 
+delete '/backups/:id' do
+  Backup.destroy_with_directory(params[:id])
+  redirect '/'
+end
+
 get '/backups/:id/perform' do
   backup = Backup.get(params[:id])
   backup.store

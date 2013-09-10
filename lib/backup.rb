@@ -21,6 +21,14 @@ class Backup
     end
   end
 
+  def self.destroy_with_directory id
+    backup = Backup.get(id)
+    if backup.destroy
+      backup.set_storage_name
+      Storage.destroy
+    end
+  end
+
   def store
     dump = mysqldump
     unless dump.empty?
@@ -80,8 +88,6 @@ class Backup
       return stdout
     end
   end
-
-  protected
 
   def set_storage_name
     Storage.name = dir_postfix

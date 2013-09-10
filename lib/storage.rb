@@ -13,11 +13,16 @@ class Storage
     attr_accessor :name
 
     def create
-      self.connection.directories.create({key: "backupmasta-#{name}"})
+      connection.directories.create({key: "backupmasta-#{name}"})
+    end
+
+    def destroy
+      get_directory.files.map(&:destroy)
+      get_directory.destroy
     end
 
     def get_directory
-      self.connection.directories.get("backupmasta-#{name}")
+      connection.directories.get("backupmasta-#{name}")
     end
 
     def files

@@ -29,6 +29,10 @@
             <li>
               <h2><%= backup.ssh_user %>@<%= backup.host %> with database <%= backup.db_name %>@<%= backup.host %></h2>
               <a href="/backups/<%= backup.id %>/perform">Back me up!</a>
+              <form method="post" action="/backups/<%= backup.id %>"> 
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit">Delete</button>
+              </form>
             </li>
           </ul>
         <% end %>
