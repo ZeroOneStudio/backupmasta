@@ -13,7 +13,7 @@ class Storage
     attr_accessor :name
 
     def create
-      connection.directories.create({key: "backupmasta-#{name}"})
+      connection.directories.create({key: "backupmasta-#{name}-#{Sinatra::Base.environment}"})
     end
 
     def destroy
@@ -22,7 +22,7 @@ class Storage
     end
 
     def get_directory
-      connection.directories.get("backupmasta-#{name}")
+      connection.directories.get("backupmasta-#{name}-#{Sinatra::Base.environment}")
     end
 
     def files
