@@ -8,11 +8,7 @@ class Backup
   property :db_name, String, required: true
   property :db_password, String, required: true
   property :keep_limit, Integer, required: true
-  property :dir_postfix, String, required: true, unique: true, format: /^a-zA-Z0-9-$/,
-                                 messages: {
-                                   is_unique: "We already have that postfix",
-                                   format: "Incorrect format"
-                                 }
+  property :dir_postfix, String, required: true, unique: true
 
   belongs_to :user
 
