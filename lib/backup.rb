@@ -33,8 +33,12 @@ class Backup
     end
   end
 
-  def store
-    dump = mysqldump
+  def perform
+    store(mysqldump)
+    cleanup
+  end
+
+  def store dump
     unless dump.empty?
       puts "Storing backup ..."
       begin

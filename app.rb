@@ -49,7 +49,7 @@ end
 
 get '/backups/:id/perform' do
   backup = Backup.get(params[:id])
-  backup.store
+  backup.perform
   redirect '/'
 end
 
