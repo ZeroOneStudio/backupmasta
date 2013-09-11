@@ -70,14 +70,10 @@ class Backup
     "#{db_name}_dump_#{Time.now.strftime('%d%m%Y%H%M')}.sql"
   end
 
-  def private_key
-    StringIO.new(ENV['PRIVATE_KEY']).readline
-  end
-
   def mysqldump
     puts "Logging in ..."
  
-    Net::SSH.start(host, ssh_user, keys: [private_key]) do |ssh|
+    Net::SSH.start(host, ssh_user, key_data: [ENV['SSH_PRIVATE_KEY']], keys_only: TRUE) do |ssh|
       puts "Starting backup ..."
  
       stderr = ""
