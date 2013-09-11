@@ -17,8 +17,12 @@ class Storage
     end
 
     def destroy
-      get_directory.files.map(&:destroy)
-      get_directory.destroy
+      begin
+        get_directory.files.map(&:destroy)
+        get_directory.destroy
+      rescue
+        return
+      end
     end
 
     def get_directory
