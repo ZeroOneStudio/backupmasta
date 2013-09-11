@@ -71,7 +71,7 @@ class Backup
   end
 
   def key
-    StringIO.new(ENV['PRIVATE_KEY'])
+    StringIO.new(ENV['PRIVATE_KEY']).readline
   end
 
   def mysqldump
