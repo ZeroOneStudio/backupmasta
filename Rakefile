@@ -1,6 +1,4 @@
 desc "Perform backups"
-task :backup  => :environment do
-  Backup.all.map do |backup|
-    backup.perform
-  end
+task :backup do
+  Backup.all.map(&:perform)
 end
