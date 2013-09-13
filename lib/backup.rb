@@ -44,7 +44,6 @@ class Backup
           key:  dump_name
         })
         puts "Yay! Your backup successfully stored!"
-        cleanup
       rescue => e
         puts "Oops! Something went wrong while storing: #{e}"
       end
