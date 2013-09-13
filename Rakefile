@@ -4,5 +4,11 @@ end
 
 desc "Perform backups"
 task :backup => :environment do
-  Backup.all.map(&:perform)
+  begin
+    Backup.all.map(&:perform)
+  rescue => e
+    puts "Got an error: #{e}"
+    Rake::Task[:backup].reenable
+    Rake::Task[:backup].invoke
+  end
 end
