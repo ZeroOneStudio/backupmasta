@@ -5,13 +5,17 @@ require 'net/ssh'
 require 'json'
 require 'omniauth'
 require 'omniauth-github'
+require 'digest/md5'
 require './env' if File.exists?('env.rb')
 
-require_relative "lib/backup"
-require_relative "lib/user"
-require_relative "lib/storage"
+require_relative 'lib/backup'
+require_relative 'lib/user'
+require_relative 'lib/storage'
 
-enable :sessions
+configure do
+  enable :sessions
+  set :session_secret, ENV['SESSION_SECRET']
+end
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/data/#{Sinatra::Base.environment}.db")
 DataMapper.finalize.auto_upgrade!
