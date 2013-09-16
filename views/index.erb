@@ -28,11 +28,12 @@
           <ul>
             <li>
               <h2><%= backup.ssh_user %>@<%= backup.host %> with database <%= backup.db_name %>@<%= backup.host %></h2>
-              <a href="/backups/<%= backup.id %>/perform">Back me up!</a>
+              <a href="/backups/<%= backup.id %>/perform">Backup</a>
               <form method="post" action="/backups/<%= backup.id %>"> 
                 <input type="hidden" name="_method" value="delete">
                 <button type="submit">Delete</button>
               </form>
+              Latest dump: <a href="<%= backup.latest[:url] %>"><%= backup.latest[:key] %></a> <a href="#">Restore</a>
             </li>
           </ul>
         <% end %>
