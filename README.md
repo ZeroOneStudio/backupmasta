@@ -15,6 +15,8 @@ You are to have a bunch of ENV variables to make Backupmasta work:
 * `ENV['GOOGLE_STORAGE_SECRET']`
 * `ENV['GITHUB_KEY']`
 * `ENV['GITHUB_SECRET']`
+* `ENV['SESSION_SECRET']`
+* `ENV['SSH_PRIVATE_KEY']`
 
 It should be set in an `env.rb` file at the root of the project. Example:
 
