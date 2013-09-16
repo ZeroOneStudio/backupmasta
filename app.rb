@@ -47,7 +47,7 @@ delete '/backups/:id' do
   redirect '/'
 end
 
-get '/backups/:id/perform' do
+post '/backups/:id/perform' do
   backup = Backup.get(params[:id])
   backup.perform
   redirect '/'

@@ -27,13 +27,23 @@
         <% current_user.backups.each do |backup| %>
           <ul>
             <li>
-              <h2><%= backup.ssh_user %>@<%= backup.host %> with database <%= backup.db_name %>@<%= backup.host %></h2>
-              <a href="/backups/<%= backup.id %>/perform">Backup</a>
+              <h2>
+                <%= backup.ssh_user %>@<%= backup.host %> with database <%= backup.db_name %>
+              </h2>
+              Latest dump: <a href="<%= backup.latest[:url] %>">...<%= backup.latest[:key].split('_').last %></a> 
+              
+              <form method="post" action="/backups/<%= backup.id %>/perform">
+                <button type="submit">Backup</button>
+              </form>
+
+              <form method="post" action="/backups/<%= backup.id %>/restore">
+                <button type="submit">Restore</button>
+              </form>
+
               <form method="post" action="/backups/<%= backup.id %>"> 
                 <input type="hidden" name="_method" value="delete">
                 <button type="submit">Delete</button>
               </form>
-              Latest dump: <a href="<%= backup.latest[:url] %>"><%= backup.latest[:key] %></a> <a href="#">Restore</a>
             </li>
           </ul>
         <% end %>
