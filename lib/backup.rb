@@ -30,17 +30,17 @@ class Backup
   end
 
   def perform
-    store(mysqldump)
+    store(dump)
     cleanup
   end
 
-  def store dump
-    unless dump.empty?
+  def store db_dump
+    unless db_dump.empty?
       puts "Storing backup ..."
       begin
         set_storage_name
         Storage.files.create({
-          body: dump,
+          body: db_dump,
           key:  dump_name
         })
         puts "Yay! Your backup successfully stored!"
@@ -69,7 +69,7 @@ class Backup
     "#{db_name}_dump_#{Time.now.strftime('%d%m%Y%H%M')}.sql"
   end
 
-  def mysqldump
+  def dump
     puts "Logging in ..."
  
     Net::SSH.start(host, ssh_user, key_data: [ENV['SSH_PRIVATE_KEY']], keys_only: TRUE) do |ssh|
