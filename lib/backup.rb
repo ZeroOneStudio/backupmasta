@@ -91,7 +91,7 @@ class Backup
   end
 
   def latest  
-    files.last unless files.empty?
+    files.empty? ? nil : files.last
   end
 
   def files

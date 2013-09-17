@@ -30,8 +30,11 @@
               <h2>
                 <%= backup.ssh_user %>@<%= backup.host %> with database <%= backup.db_name %>
               </h2>
-              Latest dump: <a href="<%= backup.latest.public_url %>">...<%= backup.latest.key.split('_').last %></a> 
               
+              <% if backup.latest %>
+                Latest dump: <a href="<%= backup.latest.public_url %>">...<%= backup.latest.key.split('_').last %></a> 
+              <% end %>
+
               <form method="post" action="/backups/<%= backup.id %>/perform">
                 <button type="submit">Backup</button>
               </form>
