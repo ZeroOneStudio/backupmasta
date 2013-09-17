@@ -38,8 +38,7 @@ class Backup
     unless db_dump.empty?
       puts "Storing backup ..."
       begin
-        set_storage_name
-        Storage.files.create({
+        files.create({
           body: db_dump,
           key:  dump_name
         })
