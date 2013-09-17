@@ -94,8 +94,7 @@ class Backup
 
   def latest
     set_storage_name
-    last_file = Storage.files.last
-    { key: last_file.key, url: last_file.public_url }
+    Storage.files.last
   end
 
   def set_storage_name
