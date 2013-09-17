@@ -51,8 +51,6 @@ class Backup
   end
 
   def cleanup
-    set_storage_name
-    files = Storage.files
     count = files.count
     if count > keep_limit
       puts "Cleaning up ..."
@@ -92,9 +90,13 @@ class Backup
     end
   end
 
-  def latest
+  def latest  
+    files.last unless files.empty?
+  end
+
+  def files
     set_storage_name
-    Storage.files.last
+    Storage.files
   end
 
   def set_storage_name
