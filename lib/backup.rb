@@ -34,6 +34,10 @@ class Backup
     cleanup
   end
 
+  def perform_async
+    BackupWorker.perform_async(self.id)
+  end
+
   def store db_dump
     unless db_dump.empty?
       puts "Storing backup ..."

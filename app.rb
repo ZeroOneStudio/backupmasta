@@ -5,12 +5,15 @@ require 'net/ssh'
 require 'json'
 require 'omniauth'
 require 'omniauth-github'
+require 'sidekiq'
+require 'sidekiq/web'
 require 'digest/md5'
 require './env' if File.exists?('env.rb')
 
 require_relative 'lib/backup'
 require_relative 'lib/user'
 require_relative 'lib/storage'
+require_relative 'lib/workers/backup_worker'
 
 configure do
   enable :sessions
@@ -53,7 +56,7 @@ end
 
 post '/backups/:id/perform' do
   backup = Backup.get(params[:id])
-  backup.perform
+  backup.perform_async
   redirect '/'
 end
 
