@@ -67,7 +67,8 @@ class Backup
   end
 
   def dump_name
-    "#{db_name}_dump_#{Time.now.strftime('%d%m%Y%H%M')}.sql"
+    time = Time.now
+    "#{time.to_i}_#{db_name}_dump_#{time.strftime('%d_%B_%Y_%H_%M')}.sql"
   end
 
   def dump
