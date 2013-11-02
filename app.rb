@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'data_mapper'
 require 'fog'
+require 'unf'
 require 'net/ssh'
 require 'json'
 require 'omniauth'

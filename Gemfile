@@ -7,6 +7,7 @@ gem "dm-postgres-adapter", group: :production
 gem "dm-sqlite-adapter", group: :development
 gem "net-ssh"
 gem "fog"
+gem "unf"
 gem "omniauth"
 gem "omniauth-github"
 gem "sidekiq"
