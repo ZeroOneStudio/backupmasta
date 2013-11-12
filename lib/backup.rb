@@ -106,4 +106,8 @@ class Backup
   def set_storage_name
     Storage.name = dir_postfix
   end
+
+  def owner? current_user
+    user == current_user
+  end
 end

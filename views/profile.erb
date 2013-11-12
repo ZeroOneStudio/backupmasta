@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>Backupmasta — da masta of ur backups!</title>
+  </head>
+  <body>
+    <h1>Backup Masta</h1>
+
+    <div>
+      <a href="https://github.com/ZeroOneStudio/backupmasta">Fork me on Github</a>
+    </div>
+
+    <div>
+      <%= current_user.name %> <a href="/logout">Sign out</a>
+
+      <form action="/backups" method="post" accept-charset="utf-8">
+        <p>SSH User: <input type="text" name="backup[ssh_user]" value="" id="backup[ssh_user]" required/></p>
+        <p>Host: <input type="text" name="backup[host]" value="" id="backup[host]" required/></p>
+        <p>Database User: <input type="text" name="backup[db_user]" value="" id="backup[db_user]" required/></p>
+        <p>Database Name: <input type="text" name="backup[db_name]" value="" id="backup[db_name]" required/></p>
+        <p>Database Password: <input type="text" name="backup[db_password]" value="" id="backup[db_password]" required/></p>
+        <p>Backups Limit: <input type="text" name="backup[keep_limit]" value="" id="backup[keep_limit]" required/></p>
+        <p>Directory Postfix: <input type="text" name="backup[dir_postfix]" value="" id="backup[dir_postfix]" required/></p>
+        <p><input type="submit" value="Add" /></p>
+      </form>
+
+      <% current_user.backups.each do |backup| %>
+        <ul>
+          <li>
+            <h2>
+              <%= backup.ssh_user %>@<%= backup.host %> with database <%= backup.db_name %>
+            </h2>
+            
+            <% if backup.latest %>
+              Latest dump: <a href="<%= backup.latest.public_url %>">...<%= backup.latest.key.split('_').last %></a> 
+            <% end %>
+
+            <form method="post" action="/backups/<%= backup.id %>/perform">
+              <button type="submit">Backup</button>
+            </form>
+
+            <form method="post" action="/backups/<%= backup.id %>/restore">
+              <button type="submit">Restore</button>
+            </form>
+
+            <form method="post" action="/backups/<%= backup.id %>"> 
+              <input type="hidden" name="_method" value="delete">
+              <button type="submit">Delete</button>
+            </form>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </body>
+</html>

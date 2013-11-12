@@ -42,23 +42,39 @@ get '/logout' do
 end
 
 get '/' do
-  erb :index
+  if @current_user
+    erb :profile
+  else
+    erb :index
+  end
 end
 
 post '/backups' do
-  Backup.create(params[:backup], current_user)
-  redirect '/'
+  if @current_user
+    Backup.create(params[:backup], current_user)
+    redirect '/'
+  else
+    halt 401, 'go away!'
+  end
 end
 
 delete '/backups/:id' do
-  Backup.destroy_with_directory(params[:id])
-  redirect '/'
+  if @current_user && backup.owner?(@current_user)
+    Backup.destroy_with_directory(params[:id])
+    redirect '/'
+  else
+    halt 401, 'go away!'
+  end
 end
 
 post '/backups/:id/perform' do
   backup = Backup.get(params[:id])
-  backup.perform_async
-  redirect '/'
+  if @current_user && backup.owner?(@current_user)
+    backup.perform_async
+    redirect '/'
+  else
+    halt 401, 'go away!'
+  end
 end
 
 helpers do
