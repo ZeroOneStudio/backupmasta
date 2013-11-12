@@ -54,7 +54,7 @@ post '/backups' do
     Backup.create(params[:backup], current_user)
     redirect '/'
   else
-    halt 401, 'go away!'
+    halt 401, 'Not authorized!'
   end
 end
 
@@ -63,7 +63,7 @@ delete '/backups/:id' do
     Backup.destroy_with_directory(params[:id])
     redirect '/'
   else
-    halt 401, 'go away!'
+    halt 401, 'Not authorized!'
   end
 end
 
@@ -73,7 +73,7 @@ post '/backups/:id/perform' do
     backup.perform_async
     redirect '/'
   else
-    halt 401, 'go away!'
+    halt 401, 'Not authorized!'
   end
 end
 
