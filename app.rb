@@ -42,7 +42,7 @@ get '/logout' do
 end
 
 get '/' do
-  if @current_user
+  if current_user
     erb :profile
   else
     erb :index
@@ -50,7 +50,7 @@ get '/' do
 end
 
 post '/backups' do
-  if @current_user
+  if current_user
     Backup.create(params[:backup], current_user)
     redirect '/'
   else
@@ -59,7 +59,7 @@ post '/backups' do
 end
 
 delete '/backups/:id' do
-  if @current_user && backup.owner?(@current_user)
+  if current_user && backup.owner?(current_user)
     Backup.destroy_with_directory(params[:id])
     redirect '/'
   else
@@ -69,7 +69,7 @@ end
 
 post '/backups/:id/perform' do
   backup = Backup.get(params[:id])
-  if @current_user && backup.owner?(@current_user)
+  if current_user && backup.owner?(current_user)
     backup.perform_async
     redirect '/'
   else
