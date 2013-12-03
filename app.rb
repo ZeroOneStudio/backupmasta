@@ -58,6 +58,24 @@ post '/backups' do
   end
 end
 
+get '/backups/:id/edit' do
+  @backup = Backup.get(params[:id])
+  if current_user && @backup.owner?(current_user)
+    erb :"backups/edit"
+  else
+    halt 401, 'Not authorized!'
+  end
+end
+
+put '/backups/:id' do
+  backup = Backup.get(params[:id])
+  if current_user && backup.owner?(current_user)
+    redirect '/' if backup.update(params[:backup])
+  else
+    halt 401, 'Not authorized!'
+  end
+end
+
 delete '/backups/:id' do
   if current_user && backup.owner?(current_user)
     Backup.destroy_with_directory(params[:id])

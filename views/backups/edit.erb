@@ -1,0 +1,34 @@
+<form action="/backups/<%= @backup.id %>" method="post" accept-charset="utf-8">
+  <p>
+    SSH User: 
+    <input type="text" name="backup[ssh_user]" value="<%= @backup.ssh_user %>" id="backup[ssh_user]" required/>
+  </p>
+  <p>
+    Host: 
+    <input type="text" name="backup[host]" value="<%= @backup.host %>" id="backup[host]" required/>
+  </p>
+  <p>
+    Database User: 
+    <input type="text" name="backup[db_user]" value="<%= @backup.db_user %>" id="backup[db_user]" required/>
+  </p>
+  <p>
+    Database Name: 
+    <input type="text" name="backup[db_name]" value="<%= @backup.db_name %>" id="backup[db_name]" required/>
+  </p>
+  <p>
+    Database Password: 
+    <input type="text" name="backup[db_password]" value="<%= @backup.db_password %>" id="backup[db_password]" required/>
+  </p>
+  <p>
+    Backups Limit: 
+    <input type="text" name="backup[keep_limit]" value="<%= @backup.keep_limit %>" id="backup[keep_limit]" required/>
+  </p>
+  <p>
+    Directory Postfix: 
+    <input type="text" name="backup[dir_postfix]" value="<%= @backup.dir_postfix %>" id="backup[dir_postfix]" disabled/>
+    <i>Sorry, currently can't be changed</i>
+  </p>
+
+  <input type="hidden" name="_method" value="put" />
+  <p><input type="submit" value="Update" /></p>
+</form>

@@ -3,7 +3,18 @@
     <title>Backupmasta — da masta of ur backups!</title>
   </head>
   <body>
-    <h1>Backup Masta</h1>
+    <h1><a href="/">Backup Masta</a></h1>
+    
+    <div>
+      <a href="https://github.com/ZeroOneStudio/backupmasta">Fork me on Github</a>
+    </div>
+    
+    <% if current_user %>
+      <%= current_user.name %> <a href="/logout">Sign out</a>
+    <% else %>  
+      <a href='/auth/github'>Sign in with Github</a>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>
