@@ -9,23 +9,30 @@ class Backup
   property :db_password, String, required: true
   property :keep_limit, Integer, required: true
   property :dir_postfix, String, required: true, unique: true
+  property :enabled, Boolean
 
   belongs_to :user
 
-  def self.create params, current_user
-    backup = new(params)
-    backup.user = current_user
-    if backup.save
-      backup.set_storage_name
-      Storage.create
+  class << self
+    def enabled
+      all(enabled: true)
     end
-  end
 
-  def self.destroy_with_directory id
-    backup = Backup.get(id)
-    if backup.destroy
-      backup.set_storage_name
-      Storage.destroy
+    def create params, current_user
+      backup = new(params)
+      backup.user = current_user
+      if backup.save
+        backup.set_storage_name
+        Storage.create
+      end
+    end
+
+    def destroy_with_directory id
+      backup = Backup.get(id)
+      if backup.destroy
+        backup.set_storage_name
+        Storage.destroy
+      end
     end
   end
 
