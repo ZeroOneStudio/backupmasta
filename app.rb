@@ -70,7 +70,6 @@ end
 put '/backups/:id' do
   backup = Backup.get(params[:id])
   if current_user && backup.owner?(current_user)
-    puts params[:backup]
     redirect '/' if backup.update(params[:backup])
   else
     halt 401, 'Not authorized!'

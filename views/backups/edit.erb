@@ -29,7 +29,7 @@
     <i>Sorry, currently can't be changed</i>
   </p>
   <p>
-    Enabled? <%= @backup.enabled %>
+    Enabled?
     <select name="backup[enabled]" id="backup[enabled]">
       <option value="true" <%= "selected" if @backup.enabled %>>Enabled</option>
       <option value="false" <%= "selected" unless @backup.enabled %>>Disabled</option>
