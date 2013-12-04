@@ -1,4 +1,6 @@
 require 'sinatra'
+require 'sinatra_more/markup_plugin'
+require 'sinatra_more/render_plugin'
 require 'data_mapper'
 require 'fog'
 require 'unf'
@@ -15,6 +17,9 @@ require_relative 'lib/backup'
 require_relative 'lib/user'
 require_relative 'lib/storage'
 require_relative 'lib/workers/backup_worker'
+
+register SinatraMore::MarkupPlugin
+register SinatraMore::RenderPlugin
 
 configure do
   enable :sessions

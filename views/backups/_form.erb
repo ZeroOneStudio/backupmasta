@@ -1,0 +1,14 @@
+<% form_for @backup || Backup.new, url do |f| %>
+  <%= f.text_field_block :ssh_user %>
+  <%= f.text_field_block :host %>
+  <%= f.text_field_block :db_user  %>
+  <%= f.text_field_block :db_name  %>
+  <%= f.text_field_block :db_password %>
+  <%= f.text_field_block :keep_limit %>
+  <%= f.text_field_block :dir_postfix unless update %>
+  <%= f.check_box_block :enabled %>
+
+  <%= hidden_form_method_field 'put' if update %>
+
+  <%= f.submit_block submit_text %>
+<% end %>
