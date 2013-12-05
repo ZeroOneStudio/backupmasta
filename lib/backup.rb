@@ -26,13 +26,12 @@ class Backup
         Storage.create
       end
     end
+  end
 
-    def destroy_with_directory id
-      backup = Backup.get(id)
-      if backup.destroy
-        backup.set_storage_name
-        Storage.destroy
-      end
+  def destroy_with_directory
+    if self.destroy
+      self.set_storage_name
+      Storage.destroy
     end
   end
 

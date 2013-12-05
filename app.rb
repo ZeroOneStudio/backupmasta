@@ -82,8 +82,9 @@ put '/backups/:id' do
 end
 
 delete '/backups/:id' do
+  backup = Backup.get(params[:id])
   if current_user && backup.owner?(current_user)
-    Backup.destroy_with_directory(params[:id])
+    backup.destroy_with_directory
     redirect '/'
   else
     halt 401, 'Not authorized!'
