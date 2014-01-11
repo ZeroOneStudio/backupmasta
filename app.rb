@@ -47,55 +47,45 @@ get '/logout' do
 end
 
 get '/' do
-  if current_user
-    erb :profile
-  else
-    erb :index
-  end
+  current_user ? erb(:profile) : erb(:index)
 end
 
 post '/backups' do
-  if current_user
-    Backup.create(params[:backup], current_user)
-    redirect '/'
-  else
-    halt 401, 'Not authorized!'
-  end
+  halt 401, 'Not authorized!' unless current_user
+  Backup.create(params[:backup], current_user)
+  redirect '/'
 end
 
 get '/backups/:id/edit' do
-  @backup = Backup.get(params[:id])
-  if current_user && @backup.owner?(current_user)
+  perform_action do |backup|
     erb :"backups/edit"
-  else
-    halt 401, 'Not authorized!'
   end
 end
 
 put '/backups/:id' do
-  backup = Backup.get(params[:id])
-  if current_user && backup.owner?(current_user)
+  perform_action do |backup|
     redirect '/' if backup.update(params[:backup])
-  else
-    halt 401, 'Not authorized!'
   end
 end
 
 delete '/backups/:id' do
-  backup = Backup.get(params[:id])
-  if current_user && backup.owner?(current_user)
+  perform_action do |backup|
     backup.destroy_with_directory
     redirect '/'
-  else
-    halt 401, 'Not authorized!'
   end
 end
 
 post '/backups/:id/perform' do
-  backup = Backup.get(params[:id])
-  if current_user && backup.owner?(current_user)
+  perform_action do |backup|
     backup.perform_async
     redirect '/'
+  end
+end
+
+def perform_action &block
+  @backup = Backup.get(params[:id])
+  if current_user && @backup.owner?(current_user)
+    yield @backup if block_given?
   else
     halt 401, 'Not authorized!'
   end
