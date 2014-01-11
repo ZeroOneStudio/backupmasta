@@ -12,3 +12,10 @@ gem "unf"
 gem "omniauth"
 gem "omniauth-github"
 gem "sidekiq"
+
+group :test do
+  gem "coveralls", require: false
+  gem "rspec"
+  gem "rack-test"
+  gem "rake"
+end

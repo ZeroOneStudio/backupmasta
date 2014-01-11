@@ -3,6 +3,8 @@ backupmasta
 
 Backupmasta — da masta of ur backups!
 
+[![Build Status](https://travis-ci.org/ZeroOneStudio/backupmasta.png?branch=master)](https://travis-ci.org/ZeroOneStudio/backupmasta)
+[![Coverage Status](https://coveralls.io/repos/ZeroOneStudio/backupmasta/badge.png)](https://coveralls.io/r/ZeroOneStudio/backupmasta)
 [![Dependency Status](https://gemnasium.com/ZeroOneStudio/backupmasta.png)](https://gemnasium.com/ZeroOneStudio/backupmasta)
 [![Code Climate](https://codeclimate.com/github/ZeroOneStudio/backupmasta.png)](https://codeclimate.com/github/ZeroOneStudio/backupmasta)
 
