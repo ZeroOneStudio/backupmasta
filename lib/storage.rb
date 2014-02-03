@@ -22,7 +22,7 @@ class Storage
       rescue
       return
     end
-    
+
     def files
       get_directory.files
     end

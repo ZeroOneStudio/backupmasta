@@ -13,26 +13,18 @@ class Backup
 
   belongs_to :user
 
-  class << self
-    def enabled
-      all(enabled: true)
-    end
+  def self.enabled
+    all(enabled: true)
+  end
 
-    def create params, current_user
-      backup = new(params)
-      backup.user = current_user
-      if backup.save
-        backup.set_storage_name
-        Storage.create
-      end
-    end
+  def self.create params, current_user
+    backup = new(params)
+    backup.user = current_user
+    backup.set_storage_name { Storage.create } if backup.save
   end
 
   def destroy_with_directory
-    if self.destroy
-      self.set_storage_name
-      Storage.destroy
-    end
+    set_storage_name { Storage.destroy } if destroy
   end
 
   def perform
@@ -45,31 +37,13 @@ class Backup
   end
 
   def store db_dump
-    unless db_dump.empty?
-      puts "Storing backup ..."
-      begin
-        files.create({
-          body: db_dump,
-          key:  dump_name
-        })
-        puts "Yay! Your backup successfully stored!"
-      rescue => e
-        puts "Oops! Something went wrong while storing: #{e}"
-      end
-    end
+    files.create({ body: db_dump, key:  dump_name }) if db_dump
+    rescue
+    return
   end
 
   def cleanup
-    count = files.count
-    if count > keep_limit
-      puts "Cleaning up ..."
-      files.shift(count - keep_limit).map do |file| 
-        file.destroy
-        puts "Backup #{file.key} was removed"
-      end
-    else
-      puts "Nothing to cleanup"
-    end
+    files.shift(files_count - keep_limit).map {|file| file.destroy } if files_count > keep_limit
   end
 
   def dump_name
@@ -78,39 +52,28 @@ class Backup
   end
 
   def dump
-    puts "Logging in ..."
- 
     Net::SSH.start(host, ssh_user, key_data: [ENV['SSH_PRIVATE_KEY']], keys_only: TRUE) do |ssh|
-      puts "Starting backup ..."
- 
-      stderr = ""
-      stdout = ""
-      
       ssh.exec!("mysqldump --user=#{db_user} --password=#{db_password} #{db_name}") do |channel, stream, data|
-        if stream == :stderr
-          stderr << data
-          puts "Something went wrong while dumping: #{stderr}"
-        elsif stream == :stdout
-          stdout << data
-        end
+        return if stream == :stderr
+        return data if stream == :stdout
       end
-
-      puts "Done!" if stderr.empty?
-      return stdout
     end
   end
 
-  def latest  
-    files.empty? ? nil : files.last
+  def latest
+    files.last unless files.empty?
   end
 
   def files
-    set_storage_name
-    Storage.files
+    set_storage_name { Storage.files }
+  end
+
+  def files_count
+    files.count
   end
 
   def set_storage_name
-    Storage.name = dir_postfix
+    Storage.name = dir_postfix and yield
   end
 
   def owner? current_user
