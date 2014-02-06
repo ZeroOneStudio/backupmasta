@@ -53,10 +53,14 @@ class Backup
 
   def dump
     Net::SSH.start(host, ssh_user, key_data: [ENV['SSH_PRIVATE_KEY']], keys_only: TRUE) do |ssh|
+      stdout = ""
+
       ssh.exec!("mysqldump --user=#{db_user} --password=#{db_password} #{db_name}") do |channel, stream, data|
-        return if stream == :stderr
-        return data if stream == :stdout
+        abort("Something went wrong while backing up:\n#{data}") if stream == :stderr
+        stdout << data if stream == :stdout
       end
+
+      return stdout
     end
   end
 
