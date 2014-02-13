@@ -3,6 +3,10 @@ backupmasta
 
 Backupmasta — da masta of ur backups!
 
+A simple webapp that connects remotely using ssh to a host, makes a database dump and saves it to Google Cloud Storage.
+
+Build with Sinatra, Heroku and love.
+
 [![Build Status](https://travis-ci.org/ZeroOneStudio/backupmasta.png?branch=master)](https://travis-ci.org/ZeroOneStudio/backupmasta)
 [![Coverage Status](https://coveralls.io/repos/ZeroOneStudio/backupmasta/badge.png)](https://coveralls.io/r/ZeroOneStudio/backupmasta)
 [![Dependency Status](https://gemnasium.com/ZeroOneStudio/backupmasta.png)](https://gemnasium.com/ZeroOneStudio/backupmasta)
