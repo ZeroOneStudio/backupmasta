@@ -26,10 +26,10 @@ configure do
   set :session_secret, ENV['SESSION_SECRET']
 end
 
+STORAGE = Storage.connect unless Sinatra::Base.test?
+
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/data/#{Sinatra::Base.environment}.db")
 DataMapper.finalize.auto_upgrade!
-
-Storage.connect unless Sinatra::Base.test?
 
 use OmniAuth::Builder do
   provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET']

@@ -20,11 +20,11 @@ class Backup
   def self.create params, current_user
     backup = new(params)
     backup.user = current_user
-    backup.set_storage_name { Storage.create } if backup.save
+    backup.set_storage_name { STORAGE.create } if backup.save
   end
 
   def destroy_with_directory
-    set_storage_name { Storage.destroy } if destroy
+    set_storage_name { STORAGE.destroy } if destroy
   end
 
   def perform
@@ -38,8 +38,6 @@ class Backup
 
   def store db_dump
     files.create({ body: db_dump, key:  dump_name }) if db_dump
-    rescue
-    return
   end
 
   def cleanup
@@ -68,16 +66,16 @@ class Backup
     files.last unless files.empty?
   end
 
-  def files
-    set_storage_name { Storage.files }
-  end
-
   def files_count
     files.count
   end
 
+  def files
+    set_storage_name { STORAGE.files }
+  end
+
   def set_storage_name
-    Storage.name = dir_postfix and yield
+    STORAGE.name = dir_postfix and yield
   end
 
   def owner? current_user
