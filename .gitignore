@@ -2,3 +2,4 @@
 env.rb
 dump.rdb
 coverage/
+test.db
