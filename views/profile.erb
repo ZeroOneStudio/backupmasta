@@ -9,7 +9,7 @@
           <a href="/backups/<%= backup.id %>/edit">Edit</a>
         </h2>
         <div>
-          Latest backup: <%= backup.latest.key %>
+          Latest backup: <%= backup.latest.key if backup.latest %>
         </div>
         <div>
           <% form_tag("/backups/#{backup.id}/perform") { submit_tag "Backup" } %>
