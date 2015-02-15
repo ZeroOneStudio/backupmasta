@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'active_support/deprecation'
 require 'sinatra_more/markup_plugin'
 require 'sinatra_more/render_plugin'
 require 'data_mapper'
