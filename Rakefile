@@ -1,4 +1,5 @@
 task :environment do
+  require 'active_support/deprecation'
   require './app.rb'
 end
 
