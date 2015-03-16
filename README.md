@@ -1,6 +1,8 @@
 backupmasta
 ===========
 
+![Backupmasta — da masta of ur backups](http://www.zeroone.st/backupmasta.jpg)
+
 Backupmasta — da masta of ur backups!
 
 A simple webapp that connects remotely using ssh to a host, makes a database dump and saves it to Google Cloud Storage.
